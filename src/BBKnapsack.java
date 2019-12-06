@@ -94,20 +94,4 @@ public class BBKnapsack {
         return maxProfit;
     }
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-
-        System.out.println("How many items are available to take?");
-        ArrayList<Item> array = Item.createArray(in.nextInt());
-
-        System.out.print("What is the maximum weight the bag can hold?");
-        int W = in.nextInt();
-
-        BBKnapsack knapsack = new BBKnapsack();
-        knapsack.allItems = array;
-        knapsack.maxWeight = W;
-        int maxProfit = knapsack.knapsack3();
-        System.out.println("Nodes Visited: " + knapsack.nodesVisited);
-        System.out.println("Max Profit: " + maxProfit);
-    }
 }

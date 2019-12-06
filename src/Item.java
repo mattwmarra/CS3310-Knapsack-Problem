@@ -11,9 +11,7 @@ public class Item {
         public int compare(Item i1, Item i2) {
             if (i1.ratio > i2.ratio) return -1;
             else if (i2.ratio > i1.ratio) return 1;
-            else {
-                return 0;
-            }
+            return 0;
         }
     };
 
@@ -46,7 +44,7 @@ public class Item {
             i++;
         }
         Collections.sort(array, ratioComparator);
-
+        System.out.println(Arrays.toString(array.toArray()));
         return array;
     }
 }

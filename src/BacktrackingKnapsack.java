@@ -5,7 +5,7 @@ public class BacktrackingKnapsack {
     private int maxWeight = 0;
     private int numBest = 0;
     private char[] include = null;
-    private char[] bestSet = null;
+    public char[] bestSet = null;
     private int nodesVisited = 0;
     ArrayList<Item> allItems = null;
     ArrayList<Item> taken = null;
@@ -56,6 +56,18 @@ public class BacktrackingKnapsack {
             }
         }
         return bound > maxProfit;
+    }
+
+    public int getMaxProfit() {
+        return maxProfit;
+    }
+
+    public int getNodesVisited() {
+        return nodesVisited;
+    }
+
+    public char[] getBestSet() {
+        return bestSet;
     }
 
     public static void main(String[] args) {
