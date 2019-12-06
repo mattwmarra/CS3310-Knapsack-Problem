@@ -44,7 +44,6 @@ public class Item {
             i++;
         }
         Collections.sort(array, ratioComparator);
-        System.out.println(Arrays.toString(array.toArray()));
         return array;
     }
 }

@@ -16,7 +16,7 @@ public class BBKnapsack {
 
         public ItemNode(int level, int price, int weight) {
             super(price, weight);
-            this.bound = 0;
+            this.bound = this.getBound();
             this.level = level;
         }
 
@@ -52,42 +52,41 @@ public class BBKnapsack {
     public int knapsack3() {
         PriorityQueue<ItemNode> PQ = new PriorityQueue<>();
         int maxProfit = 0;
-        ItemNode u = new ItemNode(0, 0, 0), v;
-        v = new ItemNode(-1, 0, 0);
-        v.getBound();
-        PQ.add(v);
+        ItemNode checkedNode;
+        checkedNode = new ItemNode(-1, 0, 0);
+        checkedNode.getBound();
+        PQ.add(checkedNode);
 
         while (!PQ.isEmpty()) {
-            v = PQ.remove(); // remove unexpanded node with best bound
-
-            if (v.bound > maxProfit) { // see if node is still promising
+            checkedNode = PQ.remove(); // remove unexpanded node with best bound
+            //w = { 2, 5, 10, 5 } p = { 40, 30, 50, 10 }
+            if (checkedNode.bound > maxProfit && checkedNode.level < allItems.size()-1) { // see if node is still promising
                 this.nodesVisited++;
-                Item nextItem = allItems.get(v.level + 1);
-                u.level = v.level + 1;
-                u.profit = v.profit + nextItem.profit;
-                u.weight = v.weight + nextItem.weight;
-
-                if (v.level == -1) {
+                Item nextItem = allItems.get(checkedNode.level + 1); //get next item in array
+                //create child node and find its bound
+                ItemNode u = new ItemNode(checkedNode.level+1, checkedNode.profit + nextItem.profit, checkedNode.weight + nextItem.weight);
+                if(checkedNode.level == -1){
                     u.level = 0;
                 }
-                u.getBound();
 
-                System.out.println(u);
+
                 if (u.weight <= maxWeight && u.profit > maxProfit) {
                     maxProfit = u.profit;
                 }
 
                 if (u.bound > maxProfit) {
-                    this.nodesVisited++;
                     PQ.add(new ItemNode(u.level, u.profit, u.weight));
                 }
 
-                u.weight = v.weight;
-                u.profit = v.profit;
+                //check node without accepting the next item (go right)
+                u.weight = checkedNode.weight;
+                u.profit = checkedNode.profit;
                 u.getBound();
+
                 // add u to PQ if it is promising
                 if (u.bound > maxProfit) {
-                    PQ.add(u);
+                    nodesVisited++;
+                    PQ.add(new ItemNode(u.level, u.profit, u.weight));
                 }
             }
         }
